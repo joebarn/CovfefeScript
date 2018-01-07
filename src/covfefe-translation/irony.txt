@@ -1,0 +1,50 @@
+BnfTerm
+	Terminal
+		KeyTerm
+		RegexBasedTerminal
+	NonTerminal
+	BfnExpression
+	GrammarHint
+
+
+KeyTerms may be 'Keywords' if first char is a letter (IsKeyword=true), or 'Key Symbols' otherwise. I'm not sure why, but there is a difference between 'foo' and '_foo'. KeyTerms do not get inited in the AST (NoAst=true). KeyTerms can be created on-the-fly ("?").
+
+The "usual" whitespace rules are defaulted, override SkipWhiteSpace to change.
+
+"x | y + z"  defaults to "x | (y + z)"... in other words it is an "or-list of plus-lists". + has higher precedece.
+
+MakePlusRule, MakeStarRule take a NonTerminal as input and sets the rule to that input. So you don't need to explicitly set the rule as in most examples.
+
+	MakeStarRule(thingsstar, null, (foo | joe | "bar" | alpha_char));
+
+Never create a Make rule on the fly, as it will work but the AST builder is broken and won't visit it. Don't do this:
+
+	constant_label.Rule = (underscore | alpha_char) + MakePlusRule(new NonTerminal("constant_label2"),label_char);
+
+	
+AST generation. Literal and Identifier node creation?
+
+we appear to visit the parse tree bottom up
+
+
+
+
+
+
+
+
+
+
+http://knowm.org/the-adaptive-power-problem/
+http://knowm.org/thermodynamic-ram-technology-stack-published/
+https://en.wikipedia.org/wiki/Neuromorphic_engineering
+
+https://irony.codeplex.com/
+
+http://irony-roman.blogspot.com/
+
+https://www.codeproject.com/Articles/25069/JSBasic-A-BASIC-to-JavaScript-Compiler
+
+https://www.codeproject.com/Articles/22650/Irony-NET-Compiler-Construction-Kit
+
+https://github.com/daxnet/irony

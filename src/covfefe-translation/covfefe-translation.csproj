@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CovfefeScript.Translation</RootNamespace>
+    <AssemblyName>covfefe-translation</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Irony">
+      <HintPath>..\libs\Irony\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Ast\CaterpillarAstNode.cs" />
+    <Compile Include="Ast\ArgumentsAstNode.cs" />
+    <Compile Include="Ast\ImportAstNode.cs" />
+    <Compile Include="Ast\ParametersAstNode.cs" />
+    <Compile Include="Ast\TestAstNode.cs" />
+    <Compile Include="Ast\OperatorAstNode.cs" />
+    <Compile Include="Ast\IfAstNode.cs" />
+    <Compile Include="Ast\YerFiredAstNode.cs" />
+    <Compile Include="Ast\BtfoAstNode.cs" />
+    <Compile Include="Ast\ShitPostAstNode.cs" />
+    <Compile Include="Ast\BongAstNode.cs" />
+    <Compile Include="Ast\Irony\AstNode.cs" />
+    <Compile Include="Ast\Irony\AstNodeBase.cs" />
+    <Compile Include="Ast\Irony\DefaultAstNode.cs" />
+    <Compile Include="Ast\Irony\KeyTermAstNode.cs" />
+    <Compile Include="Ast\CuckAstNode.cs" />
+    <Compile Include="Ast\AssignmentAstNode.cs" />
+    <Compile Include="Ast\BingAstNode.cs" />
+    <Compile Include="Ast\StatementAstNode.cs" />
+    <Compile Include="Ast\LabelAstNode.cs" />
+    <Compile Include="Ast\IntegerAstNode.cs" />
+    <Compile Include="Ast\LValueAstNode.cs" />
+    <Compile Include="Ast\TriggerAstNode.cs" />
+    <Compile Include="Ast\SourceFileAstNode.cs" />
+    <Compile Include="CovfefeGrammar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="irony.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\rebop-vm\rebop-vm.csproj">
+      <Project>{a910f85e-ba07-4567-b472-ba88cfe9fd32}</Project>
+      <Name>rebop-vm</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
