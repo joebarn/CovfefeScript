@@ -27,9 +27,9 @@ using Irony.GrammarExplorer.Properties;
 using Irony.GrammarExplorer.Highlighter;
 
 namespace Irony.GrammarExplorer {
-  using ScriptException = Irony.Interpreter.ScriptException; //that's the only place we use stuff from Irony.Interpreter
+    using ScriptException = Irony.Interpreter.ScriptException; //that's the only place we use stuff from Irony.Interpreter
 
-  public partial class fmGrammarExplorer : Form {
+    public partial class fmGrammarExplorer : Form {
     public fmGrammarExplorer() {
       InitializeComponent();
       _grammarLoader.AssemblyUpdated += GrammarAssemblyUpdated;
@@ -343,7 +343,7 @@ namespace Irony.GrammarExplorer {
     private void CreateGrammar() {
 
             //JOE
-            _grammar = new CovfefeScript.CovfefeGrammar();
+            _grammar = new CovfefeScript.Translation.CovfefeGrammar();
           //_grammar = _grammarLoader.CreateGrammar();
     }
 
@@ -385,15 +385,37 @@ namespace Irony.GrammarExplorer {
 
             //JOE
 
-            txtRam.Text ="";
+            txtWast.Text = "";
+            txtWasm.Text ="";
             var file = _parseTree.Root?.AstNode;
             if (file!=null)
             {
-                //Rebop.Translation.ROF rof = Rebop.Translation.Rasm.Assembler.Assemble((Rebop.Translation.Rasm.Ast.FileAstNode)file);
-                //txtRasm.Text = GetRasm(rof);
-                //txtRam.Text = GetRam(rof);
+                var wast = new CovfefeScript.Translation.Wasm.Assembler().Assemble((CovfefeScript.Translation.Ast.SourceFileAstNode)file);
+                txtWast.Text = wast;
+
+                File.WriteAllText("in.wat", wast);
+
+                var wat2wasm = new CovfefeScript.Compiler.Wat2Wasm();
+                if (wat2wasm.CompileFile("in.wat") == 0)
+                {
+                    var dump = new CovfefeScript.Compiler.WasmObjDump();
+
+                    dump.Disassemble("out.wasm");
+                    txtWasm.Text = dump.Output.Replace("\n","\r\n");
+
+                    dump.Details("out.wasm");
+                    txtWasm.Text += dump.Output.Replace("\n", "\r\n");
+
+                }
+                else
+                {
+                    txtWasm.Text = wat2wasm.Output.Replace("\n", "\r\n");
+                }
+
 
             }
+
+            CovfefeScript.Compiler.HtmlRunner.Generate("out.wasm", true);
 
             txtSource.Focus();
 

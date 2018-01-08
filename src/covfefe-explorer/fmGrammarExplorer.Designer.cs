@@ -55,8 +55,10 @@ namespace Irony.GrammarExplorer {
             this.tvParseTree = new System.Windows.Forms.TreeView();
             this.pageAst = new System.Windows.Forms.TabPage();
             this.tvAst = new System.Windows.Forms.TreeView();
-            this.pageRasm = new System.Windows.Forms.TabPage();
-            this.txtRasm = new System.Windows.Forms.TextBox();
+            this.pageWast = new System.Windows.Forms.TabPage();
+            this.txtWast = new System.Windows.Forms.TextBox();
+            this.pageWasm = new System.Windows.Forms.TabPage();
+            this.txtWasm = new System.Windows.Forms.TextBox();
             this.chkParserTrace = new System.Windows.Forms.CheckBox();
             this.pnlLang = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
@@ -133,8 +135,6 @@ namespace Irony.GrammarExplorer {
             this.label5 = new System.Windows.Forms.Label();
             this.lblRunTime = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.pageRam = new System.Windows.Forms.TabPage();
-            this.txtRam = new System.Windows.Forms.TextBox();
             this.tabGrammar.SuspendLayout();
             this.pageTerminals.SuspendLayout();
             this.pageNonTerms.SuspendLayout();
@@ -144,7 +144,8 @@ namespace Irony.GrammarExplorer {
             this.tabOutput.SuspendLayout();
             this.pageSyntaxTree.SuspendLayout();
             this.pageAst.SuspendLayout();
-            this.pageRasm.SuspendLayout();
+            this.pageWast.SuspendLayout();
+            this.pageWasm.SuspendLayout();
             this.pnlLang.SuspendLayout();
             this.menuGrammars.SuspendLayout();
             this.tabBottom.SuspendLayout();
@@ -163,7 +164,6 @@ namespace Irony.GrammarExplorer {
             this.pnlParserTraceTop.SuspendLayout();
             this.pageOutput.SuspendLayout();
             this.pnlRuntimeInfo.SuspendLayout();
-            this.pageRam.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabGrammar
@@ -273,7 +273,7 @@ namespace Irony.GrammarExplorer {
             this.txtSource.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtSource.Location = new System.Drawing.Point(3, 33);
             this.txtSource.Name = "txtSource";
-            this.txtSource.Size = new System.Drawing.Size(652, 319);
+            this.txtSource.Size = new System.Drawing.Size(466, 319);
             this.txtSource.TabIndex = 23;
             this.txtSource.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.txtSource_TextChanged);
             // 
@@ -287,13 +287,13 @@ namespace Irony.GrammarExplorer {
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(652, 30);
+            this.panel1.Size = new System.Drawing.Size(466, 30);
             this.panel1.TabIndex = 2;
             // 
             // btnLocate
             // 
             this.btnLocate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLocate.Location = new System.Drawing.Point(578, 3);
+            this.btnLocate.Location = new System.Drawing.Point(392, 3);
             this.btnLocate.Name = "btnLocate";
             this.btnLocate.Size = new System.Drawing.Size(65, 23);
             this.btnLocate.TabIndex = 10;
@@ -316,7 +316,7 @@ namespace Irony.GrammarExplorer {
             // btnRun
             // 
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRun.Location = new System.Drawing.Point(506, 3);
+            this.btnRun.Location = new System.Drawing.Point(320, 3);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(65, 23);
             this.btnRun.TabIndex = 7;
@@ -328,7 +328,7 @@ namespace Irony.GrammarExplorer {
             // btnFileOpen
             // 
             this.btnFileOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFileOpen.Location = new System.Drawing.Point(362, 3);
+            this.btnFileOpen.Location = new System.Drawing.Point(176, 3);
             this.btnFileOpen.Name = "btnFileOpen";
             this.btnFileOpen.Size = new System.Drawing.Size(65, 23);
             this.btnFileOpen.TabIndex = 6;
@@ -340,7 +340,7 @@ namespace Irony.GrammarExplorer {
             // btnParse
             // 
             this.btnParse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnParse.Location = new System.Drawing.Point(433, 3);
+            this.btnParse.Location = new System.Drawing.Point(247, 3);
             this.btnParse.Name = "btnParse";
             this.btnParse.Size = new System.Drawing.Size(67, 23);
             this.btnParse.TabIndex = 1;
@@ -352,9 +352,9 @@ namespace Irony.GrammarExplorer {
             // splitter3
             // 
             this.splitter3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter3.Location = new System.Drawing.Point(655, 3);
+            this.splitter3.Location = new System.Drawing.Point(469, 3);
             this.splitter3.Name = "splitter3";
-            this.splitter3.Size = new System.Drawing.Size(6, 349);
+            this.splitter3.Size = new System.Drawing.Size(3, 349);
             this.splitter3.TabIndex = 14;
             this.splitter3.TabStop = false;
             // 
@@ -362,13 +362,13 @@ namespace Irony.GrammarExplorer {
             // 
             this.tabOutput.Controls.Add(this.pageSyntaxTree);
             this.tabOutput.Controls.Add(this.pageAst);
-            this.tabOutput.Controls.Add(this.pageRasm);
-            this.tabOutput.Controls.Add(this.pageRam);
+            this.tabOutput.Controls.Add(this.pageWast);
+            this.tabOutput.Controls.Add(this.pageWasm);
             this.tabOutput.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tabOutput.Location = new System.Drawing.Point(661, 3);
+            this.tabOutput.Location = new System.Drawing.Point(472, 3);
             this.tabOutput.Name = "tabOutput";
             this.tabOutput.SelectedIndex = 0;
-            this.tabOutput.Size = new System.Drawing.Size(350, 349);
+            this.tabOutput.Size = new System.Drawing.Size(539, 349);
             this.tabOutput.TabIndex = 13;
             // 
             // pageSyntaxTree
@@ -378,7 +378,7 @@ namespace Irony.GrammarExplorer {
             this.pageSyntaxTree.Location = new System.Drawing.Point(4, 22);
             this.pageSyntaxTree.Name = "pageSyntaxTree";
             this.pageSyntaxTree.Padding = new System.Windows.Forms.Padding(3);
-            this.pageSyntaxTree.Size = new System.Drawing.Size(342, 323);
+            this.pageSyntaxTree.Size = new System.Drawing.Size(531, 323);
             this.pageSyntaxTree.TabIndex = 1;
             this.pageSyntaxTree.Text = "Parse Tree";
             this.pageSyntaxTree.UseVisualStyleBackColor = true;
@@ -391,7 +391,7 @@ namespace Irony.GrammarExplorer {
             this.tvParseTree.Indent = 16;
             this.tvParseTree.Location = new System.Drawing.Point(3, 3);
             this.tvParseTree.Name = "tvParseTree";
-            this.tvParseTree.Size = new System.Drawing.Size(336, 317);
+            this.tvParseTree.Size = new System.Drawing.Size(525, 317);
             this.tvParseTree.TabIndex = 0;
             this.tvParseTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvParseTree_AfterSelect);
             // 
@@ -418,26 +418,48 @@ namespace Irony.GrammarExplorer {
             this.tvAst.TabIndex = 1;
             this.tvAst.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvAst_AfterSelect);
             // 
-            // pageRasm
+            // pageWast
             // 
-            this.pageRasm.Controls.Add(this.txtRasm);
-            this.pageRasm.Location = new System.Drawing.Point(4, 22);
-            this.pageRasm.Name = "pageRasm";
-            this.pageRasm.Size = new System.Drawing.Size(342, 323);
-            this.pageRasm.TabIndex = 2;
-            this.pageRasm.Text = "RASM";
-            this.pageRasm.UseVisualStyleBackColor = true;
+            this.pageWast.Controls.Add(this.txtWast);
+            this.pageWast.Location = new System.Drawing.Point(4, 22);
+            this.pageWast.Name = "pageWast";
+            this.pageWast.Size = new System.Drawing.Size(342, 323);
+            this.pageWast.TabIndex = 2;
+            this.pageWast.Text = "WAST";
+            this.pageWast.UseVisualStyleBackColor = true;
             // 
-            // txtRasm
+            // txtWast
             // 
-            this.txtRasm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRasm.Location = new System.Drawing.Point(0, 0);
-            this.txtRasm.Multiline = true;
-            this.txtRasm.Name = "txtRasm";
-            this.txtRasm.ReadOnly = true;
-            this.txtRasm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRasm.Size = new System.Drawing.Size(342, 323);
-            this.txtRasm.TabIndex = 0;
+            this.txtWast.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWast.Location = new System.Drawing.Point(0, 0);
+            this.txtWast.Multiline = true;
+            this.txtWast.Name = "txtWast";
+            this.txtWast.ReadOnly = true;
+            this.txtWast.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtWast.Size = new System.Drawing.Size(342, 323);
+            this.txtWast.TabIndex = 0;
+            // 
+            // pageWasm
+            // 
+            this.pageWasm.Controls.Add(this.txtWasm);
+            this.pageWasm.Location = new System.Drawing.Point(4, 22);
+            this.pageWasm.Name = "pageWasm";
+            this.pageWasm.Size = new System.Drawing.Size(342, 323);
+            this.pageWasm.TabIndex = 3;
+            this.pageWasm.Text = "WASM";
+            this.pageWasm.UseVisualStyleBackColor = true;
+            // 
+            // txtWasm
+            // 
+            this.txtWasm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWasm.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWasm.Location = new System.Drawing.Point(0, 0);
+            this.txtWasm.Multiline = true;
+            this.txtWasm.Name = "txtWasm";
+            this.txtWasm.ReadOnly = true;
+            this.txtWasm.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtWasm.Size = new System.Drawing.Size(342, 323);
+            this.txtWasm.TabIndex = 1;
             // 
             // chkParserTrace
             // 
@@ -1267,27 +1289,6 @@ namespace Irony.GrammarExplorer {
             this.lblRunTime.TabIndex = 18;
             this.lblRunTime.Text = "0";
             // 
-            // pageRam
-            // 
-            this.pageRam.Controls.Add(this.txtRam);
-            this.pageRam.Location = new System.Drawing.Point(4, 22);
-            this.pageRam.Name = "pageRam";
-            this.pageRam.Size = new System.Drawing.Size(342, 323);
-            this.pageRam.TabIndex = 3;
-            this.pageRam.Text = "RAM";
-            this.pageRam.UseVisualStyleBackColor = true;
-            // 
-            // txtRam
-            // 
-            this.txtRam.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRam.Location = new System.Drawing.Point(0, 0);
-            this.txtRam.Multiline = true;
-            this.txtRam.Name = "txtRam";
-            this.txtRam.ReadOnly = true;
-            this.txtRam.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRam.Size = new System.Drawing.Size(342, 323);
-            this.txtRam.TabIndex = 1;
-            // 
             // fmGrammarExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1316,8 +1317,10 @@ namespace Irony.GrammarExplorer {
             this.tabOutput.ResumeLayout(false);
             this.pageSyntaxTree.ResumeLayout(false);
             this.pageAst.ResumeLayout(false);
-            this.pageRasm.ResumeLayout(false);
-            this.pageRasm.PerformLayout();
+            this.pageWast.ResumeLayout(false);
+            this.pageWast.PerformLayout();
+            this.pageWasm.ResumeLayout(false);
+            this.pageWasm.PerformLayout();
             this.pnlLang.ResumeLayout(false);
             this.pnlLang.PerformLayout();
             this.menuGrammars.ResumeLayout(false);
@@ -1342,8 +1345,6 @@ namespace Irony.GrammarExplorer {
             this.pageOutput.PerformLayout();
             this.pnlRuntimeInfo.ResumeLayout(false);
             this.pnlRuntimeInfo.PerformLayout();
-            this.pageRam.ResumeLayout(false);
-            this.pageRam.PerformLayout();
             this.ResumeLayout(false);
 
     }
@@ -1447,10 +1448,10 @@ namespace Irony.GrammarExplorer {
     private System.Windows.Forms.Button btnLocate;
     private System.Windows.Forms.Button btnRefresh;
 	private FastColoredTextBoxNS.FastColoredTextBox txtSource;
-        private System.Windows.Forms.TabPage pageRasm;
-        private System.Windows.Forms.TextBox txtRasm;
-        private System.Windows.Forms.TabPage pageRam;
-        private System.Windows.Forms.TextBox txtRam;
+        private System.Windows.Forms.TabPage pageWast;
+        private System.Windows.Forms.TextBox txtWast;
+        private System.Windows.Forms.TabPage pageWasm;
+        private System.Windows.Forms.TextBox txtWasm;
     }
 }
 

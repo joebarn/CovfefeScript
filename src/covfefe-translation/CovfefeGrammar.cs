@@ -13,7 +13,7 @@ using CovfefeScript.Translation.Ast.Irony;
 
 */
 
-namespace CovfefeScript
+namespace CovfefeScript.Translation
 {
     [Language("CovfefeScript", "1.0", "A Fantastic Language")]
     public class CovfefeGrammar : Grammar
@@ -43,8 +43,8 @@ namespace CovfefeScript
             NonGrammarTerminals.Add(eolComment);
 
             //numbers
-            NumberLiteral integer = new NumberLiteral("integer", NumberOptions.IntOnly, typeof(IntegerAstNode));
-            integer.DefaultIntTypes = new TypeCode[] { TypeCode.UInt32 };
+            NumberLiteral integer = new NumberLiteral("integer", NumberOptions.IntOnly|NumberOptions.AllowSign, typeof(IntegerAstNode));
+            integer.DefaultIntTypes = new TypeCode[] { TypeCode.Int32 };
             integer.AddPrefix("0b", NumberOptions.Binary);
             integer.AddPrefix("0x", NumberOptions.Hex);
 
@@ -56,8 +56,10 @@ namespace CovfefeScript
             KeyTerm OPENBRACE = ToTerm("{");
             KeyTerm CLOSEBRACE = ToTerm("}");
             KeyTerm CUCK = ToTerm("cuck");
+            KeyTerm GRAB = ToTerm("grab");
             KeyTerm ASSIGNOR = ToTerm("=");
             KeyTerm ADD = ToTerm("+++");
+            KeyTerm SUB = ToTerm("---");
             KeyTerm BING = ToTerm("bing");
             KeyTerm BONG = ToTerm("bong");
             KeyTerm SHITPOST = ToTerm("shitpost");
@@ -82,7 +84,7 @@ namespace CovfefeScript
 
             //operators
             NonTerminal @operator = new NonTerminal("operator", typeof(OperatorAstNode));
-            @operator.Rule = ADD;
+            @operator.Rule = ADD | SUB;
 
             //lValue
             NonTerminal lValue = new NonTerminal("lValue", typeof(LValueAstNode));
@@ -100,6 +102,10 @@ namespace CovfefeScript
             NonTerminal cuck = new NonTerminal("cuck", typeof(CuckAstNode));
             cuck.Rule = CUCK + label + (ASSIGNOR + lValue | Empty);
 
+            //pop
+            NonTerminal pop = new NonTerminal("grab", typeof(GrabAstNode));
+            pop.Rule = GRAB + label;
+
             //bing
             NonTerminal bing = new NonTerminal("bing", typeof(BingAstNode));
             bing.Rule = BING + label;
@@ -110,7 +116,8 @@ namespace CovfefeScript
 
             //shitpost
             NonTerminal shitpost = new NonTerminal("shitpost", typeof(ShitPostAstNode));
-            shitpost.Rule = SHITPOST + ((OPENPAREN + lValue + CLOSEPAREN) | Empty);
+            //shitpost.Rule = SHITPOST + ((OPENPAREN + lValue + CLOSEPAREN) | Empty);
+            shitpost.Rule = SHITPOST + OPENPAREN + lValue + CLOSEPAREN;
 
             //btfo
             NonTerminal btfo = new NonTerminal("btfo", typeof(BtfoAstNode));
@@ -140,12 +147,12 @@ namespace CovfefeScript
             arguments.Rule = (lValue | Empty) + lValues;
 
             //call
-            NonTerminal call = new NonTerminal("call", typeof(CaterpillarAstNode));
+            NonTerminal call = new NonTerminal("call", typeof(CallAstNode));
             call.Rule = label + OPENPAREN + arguments + CLOSEPAREN;
 
             //statement
             NonTerminal statement = new NonTerminal("statement", typeof(StatementAstNode));
-            statement.Rule =  cuck | assignment | bing | bong | shitpost | btfo | yerfired | @if | caterpillar | call ;
+            statement.Rule =  cuck | assignment | bing | bong | shitpost | btfo | yerfired | @if | caterpillar | call | pop ;
 
             //build statements rule last to include blocks
             statements.Rule = MakeStarRule(statements, statement);
@@ -162,6 +169,7 @@ namespace CovfefeScript
             NonTerminal triggers = new NonTerminal("triggers");
             triggers.Rule = MakeStarRule(triggers, trigger);
 
+            /*
             //import
             NonTerminal import = new NonTerminal("import", typeof(ImportAstNode));
             import.Rule = IMPORT + label + OPENPAREN + parameters + CLOSEPAREN;
@@ -169,11 +177,11 @@ namespace CovfefeScript
             //imports
             NonTerminal imports = new NonTerminal("imports");
             imports.Rule = MakeStarRule(imports, import);
-
+            */
 
             //file structure
             NonTerminal source_file = new NonTerminal("source_file", typeof(SourceFileAstNode));
-            source_file.Rule = imports + triggers;
+            source_file.Rule = triggers;
 
             Root = source_file;
 

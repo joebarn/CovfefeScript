@@ -11,10 +11,13 @@ namespace CovfefeScript.Compiler
 {
     class Program
     {
+        
+
         static void Main(string[] args)
         {
             //check arguments
             string input;
+            string wat;
 
             if (args.Length == 1)
             {
@@ -22,7 +25,7 @@ namespace CovfefeScript.Compiler
             }
             else
             {
-                input = "in.wat";
+                input = "test.cvf";// "in.wat";
                 //Console.WriteLine("bad number of arguments");
                 //return;
             }
@@ -38,74 +41,45 @@ namespace CovfefeScript.Compiler
             //wat file or cvf file?
             string ext = Path.GetExtension(input);
 
+            if (ext==".cvf")
+            {
+                //if cvf we need to compile to wat here
+                var cvf = File.ReadAllText(input);
+                var file = Translation.CovfefeParser.Parse(cvf)?.AstNode;
+                var wast = new Translation.Wasm.Assembler().Assemble((Translation.Ast.SourceFileAstNode)file);
 
-            //if cvf we need to compile to wat here
+                File.WriteAllText("in.wat", wast);
+                wat = "in.wat";
+            }
+            else
+            {
+                wat = input;
+            }
+
 
             //compile wat
-            ProcessStartInfo start = new ProcessStartInfo();
-            start.Arguments = $"{input} -o out.wasm";
-            start.FileName = "wat2wasm.exe";
-            start.WindowStyle = ProcessWindowStyle.Hidden;
-            start.CreateNoWindow = true;
-            int exitCode;
+            var wat2wasm = new Wat2Wasm();
 
-            using (Process proc = Process.Start(start))
-            {
-                proc.WaitForExit();
-                exitCode = proc.ExitCode;
-            }
+            int exitCode=wat2wasm.CompileFile(wat);
+
 
             if (exitCode == 0)
             {
                 Console.WriteLine("wat compiled okay");
 
+                HtmlRunner.Generate("out.wasm", ext == ".cvf");
 
-                byte[] wasmBytes = File.ReadAllBytes("out.wasm");
-
-                string wasmHex = "";
-                bool comma = false;
-
-                foreach (byte b in wasmBytes)
-                {
-                    if (comma)
-                    {
-                        wasmHex += ", ";
-                    }
-                    else
-                    {
-                        comma = true;
-                    }
-
-                    wasmHex += $"0x{b.ToString("X2")}";
-                }
-
-                string html = null;
-                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CovfefeScript.Compiler.index.html"))
-                using (StreamReader reader = new StreamReader(stream))
-                {
-                    html = reader.ReadToEnd();
-                }
-
-                string src = "";
-                if (ext == ".cvf")
-                {
-                    src = "http://i0.kym-cdn.com/photos/images/facebook/000/862/065/0e9.jpg";
-                }
-                else
-                {
-                    src = "http://webassembly.org/css/webassembly.svg";
-                }
-
-                html = html.Replace("{wasm}", wasmHex);
-                html = html.Replace("{src}", src);
-
-                File.WriteAllText("index.html", html);
                 Console.WriteLine("index.html written");
+
+                var dump = new WasmObjDump();
+                dump.Disassemble("out.wasm");
+                Console.WriteLine(dump.Output);
 
             }
             else
             {
                 Console.WriteLine("wat2wasm failed");
+                Console.WriteLine(wat2wasm.Output);
             }
         }
     }

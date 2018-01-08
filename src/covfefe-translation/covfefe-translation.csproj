@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ast\GrabAstNode.cs" />
+    <Compile Include="Ast\CallAstNode.cs" />
     <Compile Include="Ast\CaterpillarAstNode.cs" />
     <Compile Include="Ast\ArgumentsAstNode.cs" />
     <Compile Include="Ast\ImportAstNode.cs" />
@@ -68,9 +70,9 @@
     <Compile Include="Ast\TriggerAstNode.cs" />
     <Compile Include="Ast\SourceFileAstNode.cs" />
     <Compile Include="CovfefeGrammar.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wasm\Assembler.cs" />
-    <Compile Include="Wasm\Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="irony.txt" />

@@ -119,6 +119,10 @@
     <Content Include="License.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\covfefe-compiler\covfefe-compiler.csproj">
+      <Project>{62834020-39b3-4462-9090-58f4fd4f8bc3}</Project>
+      <Name>covfefe-compiler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\covfefe-translation\covfefe-translation.csproj">
       <Project>{d545de4d-9dbb-4a3a-a6a2-d438028edada}</Project>
       <Name>covfefe-translation</Name>
