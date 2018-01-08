@@ -13,22 +13,29 @@ namespace CovfefeScript.Compiler
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1)
+            //check arguments
+            string input;
+
+            if (args.Length == 1)
             {
-                Console.WriteLine("bad number of arguments");
-                return;
+                input = args[0]; // "in.wat"; //args[0]
+            }
+            else
+            {
+                input = "in.wat";
+                //Console.WriteLine("bad number of arguments");
+                //return;
             }
 
-            //wat file or cvf file
-
-            string input = args[0]; // "in.wat"; //args[0]
-
+            //file exists?
             if (!File.Exists(input))
             {
                 Console.WriteLine($"can't find file {input}");
                 return;
             }
 
+
+            //wat file or cvf file?
             string ext = Path.GetExtension(input);
 
 
@@ -50,6 +57,9 @@ namespace CovfefeScript.Compiler
 
             if (exitCode == 0)
             {
+                Console.WriteLine("wat compiled okay");
+
+
                 byte[] wasmBytes = File.ReadAllBytes("out.wasm");
 
                 string wasmHex = "";
@@ -90,6 +100,7 @@ namespace CovfefeScript.Compiler
                 html = html.Replace("{src}", src);
 
                 File.WriteAllText("index.html", html);
+                Console.WriteLine("index.html written");
 
             }
             else
