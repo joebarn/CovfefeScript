@@ -25,7 +25,7 @@ namespace CovfefeScript.Compiler
             }
             else
             {
-                input = "test.cvf";// "in.wat";
+                input = "in.wat"; //"test.cvf";// "in.wat";
                 //Console.WriteLine("bad number of arguments");
                 //return;
             }

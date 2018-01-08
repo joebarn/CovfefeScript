@@ -14,6 +14,8 @@ namespace CovfefeScript.Translation.Wasm
         protected int _level = 0;
         protected string _tabs = "";
 
+        protected int _blockLevel = 0;
+
         protected void Indent()
         {
             _level++;
@@ -111,17 +113,39 @@ namespace CovfefeScript.Translation.Wasm
         {
             var instruction = statement.ChildNodes[0];
 
-
-            if (instruction is CuckAstNode || instruction is AssignmentAstNode)
+            if (instruction is CuckAstNode)
             {
                 if (instruction.ChildNodes.Count == 2)
                 {
+                    WriteLine();
+                }
+            }
+            else
+            {
+                WriteLine();
+            }
+
+            if (instruction is CuckAstNode || instruction is AssignmentAstNode)
+            {
+
+                if (instruction.ChildNodes.Count == 2)
+                {
+                    if (instruction is CuckAstNode)
+                    {
+                        WriteLine(";; cuck assignment");
+                    }
+                    else
+                    {
+                        WriteLine(";; assignment");
+                    }
+
                     Assemble(((LValueAstNode)instruction.ChildNodes[1]));
                     WriteLine($"set_local ${((LabelAstNode)instruction.ChildNodes[0]).Value}");
                 }
             }
             else if (instruction is BingAstNode || instruction is BongAstNode)
             {
+                WriteLine(";; bing/bong");
                 WriteLine($"get_local ${((LabelAstNode)instruction.ChildNodes[0]).Value}");
                 WriteLine($"i32.const 1");
 
@@ -138,11 +162,13 @@ namespace CovfefeScript.Translation.Wasm
             }
             else if (instruction is ShitPostAstNode)
             {
+                WriteLine(";; shitpost");
                 Assemble(((LValueAstNode)instruction.ChildNodes[0]));
                 WriteLine($"call $print");
             }
             else if (instruction is BtfoAstNode)
             {
+                WriteLine(";; btfo");
                 WriteLine($"drop");
                 Assemble(((LValueAstNode)instruction.ChildNodes[0]));
                 WriteLine($"return");
@@ -150,10 +176,13 @@ namespace CovfefeScript.Translation.Wasm
             }
             else if (instruction is GrabAstNode)
             {
+                WriteLine(";; grab");
                 WriteLine($"set_local ${((LabelAstNode)instruction.ChildNodes[0]).Value}");
             }
             else if (instruction is CallAstNode)
             {
+                WriteLine(";; call");
+
                 var arguments = instruction[typeof(ArgumentsAstNode)] as ArgumentsAstNode;
 
                 foreach (var argugment in arguments.ChildNodes)
@@ -162,6 +191,61 @@ namespace CovfefeScript.Translation.Wasm
                 }
 
                 WriteLine($"call ${((LabelAstNode)instruction.ChildNodes[0]).Value}");
+
+            }
+            else if (instruction is CaterpillarAstNode)
+            {
+                WriteLine(";; caterpillar");
+
+                WriteLine($"block $block{_blockLevel}");
+                Indent();
+
+                WriteLine($"loop $loop{_blockLevel}");
+                Indent();
+
+                _blockLevel++;
+                var statements = instruction.Find(typeof(StatementAstNode));
+
+                foreach (var nestedStatement in statements)
+                {
+                    Assemble(nestedStatement);
+                }
+                _blockLevel--;
+
+                WriteLine("br 0");
+
+                Dedent();
+                WriteLine("end");
+
+                Dedent();
+                WriteLine("end");
+
+            }
+            else if (instruction is YerFiredAstNode)
+            {
+                WriteLine(";; yerfired");
+                WriteLine($"br $block{_blockLevel-1}");
+            }
+            else if (instruction is IfAstNode)
+            {
+                WriteLine(";; if");
+                Assemble((LValueAstNode)instruction.ChildNodes[0]);
+                Assemble((LValueAstNode)instruction.ChildNodes[2]);
+
+                //equals is the only test
+                WriteLine("i32.eq");
+                WriteLine("if");
+                Indent();
+
+                var statements = instruction.Find(typeof(StatementAstNode));
+
+                foreach (var nestedStatement in statements)
+                {
+                    Assemble(nestedStatement);
+                }
+
+                Dedent();
+                WriteLine("end");
 
             }
 
