@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covfefe-explorer", "covfefe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covfefe-translation", "covfefe-translation\covfefe-translation.csproj", "{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "covfefe-compiler", "covfefe-compiler\covfefe-compiler.csproj", "{62834020-39B3-4462-9090-58F4FD4F8BC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62834020-39B3-4462-9090-58F4FD4F8BC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62834020-39B3-4462-9090-58F4FD4F8BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62834020-39B3-4462-9090-58F4FD4F8BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62834020-39B3-4462-9090-58F4FD4F8BC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

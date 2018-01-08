@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D545DE4D-9DBB-4A3A-A6A2-D438028EDADA}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{62834020-39B3-4462-9090-58F4FD4F8BC3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CovfefeScript.Translation</RootNamespace>
-    <AssemblyName>covfefe-translation</AssemblyName>
+    <RootNamespace>CovfefeScript.Compiler</RootNamespace>
+    <AssemblyName>cvc</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Irony">
-      <HintPath>..\libs\Irony\Irony.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,37 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ast\CaterpillarAstNode.cs" />
-    <Compile Include="Ast\ArgumentsAstNode.cs" />
-    <Compile Include="Ast\ImportAstNode.cs" />
-    <Compile Include="Ast\ParametersAstNode.cs" />
-    <Compile Include="Ast\TestAstNode.cs" />
-    <Compile Include="Ast\OperatorAstNode.cs" />
-    <Compile Include="Ast\IfAstNode.cs" />
-    <Compile Include="Ast\YerFiredAstNode.cs" />
-    <Compile Include="Ast\BtfoAstNode.cs" />
-    <Compile Include="Ast\ShitPostAstNode.cs" />
-    <Compile Include="Ast\BongAstNode.cs" />
-    <Compile Include="Ast\Irony\AstNode.cs" />
-    <Compile Include="Ast\Irony\AstNodeBase.cs" />
-    <Compile Include="Ast\Irony\DefaultAstNode.cs" />
-    <Compile Include="Ast\Irony\KeyTermAstNode.cs" />
-    <Compile Include="Ast\CuckAstNode.cs" />
-    <Compile Include="Ast\AssignmentAstNode.cs" />
-    <Compile Include="Ast\BingAstNode.cs" />
-    <Compile Include="Ast\StatementAstNode.cs" />
-    <Compile Include="Ast\LabelAstNode.cs" />
-    <Compile Include="Ast\IntegerAstNode.cs" />
-    <Compile Include="Ast\LValueAstNode.cs" />
-    <Compile Include="Ast\TriggerAstNode.cs" />
-    <Compile Include="Ast\SourceFileAstNode.cs" />
-    <Compile Include="CovfefeGrammar.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Wasm\Assembler.cs" />
-    <Compile Include="Wasm\Module.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="irony.txt" />
+    <None Include="App.config" />
+    <None Include="in.wat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="index.html" />
+    <Content Include="wat2wasm.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <title>foo</title>
+    <meta charset="utf-8" />
+
+    <script>
+
+var importObject = {
+    imports: {
+		print: function(arg) {
+		    // alert(arg);
+
+		    var div = document.createElement("div");
+		    div.style.fontFamily = "courier";
+		    div.style.fontSize = "18pt";
+		    div.style.fontWeight= "bold";
+		    div.innerHTML = arg;
+
+		    document.getElementById("output").appendChild(div);
+
+		}
+	}
+  };
+
+var bytes = new Uint8Array([ {wasm} ]); //0x00, 0x61, 0x73
+
+window.onload = function() {
+  WebAssembly.instantiate(bytes, importObject).then(function(result) {
+	result.instance.exports.main();
+  });
+  }
+
+    </script>
+
+
+</head>
+<body>
+    <img src="{src}" width="150px"/>
+    <hr/>
+    <div id="output">
+
+    </div> 
+
+</body>
+</html>
+
