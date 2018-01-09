@@ -343,9 +343,15 @@ namespace Irony.GrammarExplorer {
     private void CreateGrammar() {
 
             //JOE
-            _grammar = new CovfefeScript.Translation.CovfefeGrammar();
-          //_grammar = _grammarLoader.CreateGrammar();
-    }
+            if (cboGrammars.SelectedItem!=null)
+            {
+                _grammar = _grammarLoader.CreateGrammar();
+            }
+            else
+            {
+                _grammar = new CovfefeScript.Translation.CovfefeGrammar();
+            }
+        }
 
     private void CreateParser() {
       StopHighlighter();
@@ -360,66 +366,75 @@ namespace Irony.GrammarExplorer {
       StartHighlighter();
     }
 
-    private void ParseSample() {
-      ClearParserOutput();
-      if (_parser == null || !_parser.Language.CanParse()) return;
-      _parseTree = null;
-      GC.Collect(); //to avoid disruption of perf times with occasional collections
-      _parser.Context.TracingEnabled = chkParserTrace.Checked;
-      try {
-        _parser.Parse(txtSource.Text, "<source>");
-      } catch (Exception ex) {
-        gridCompileErrors.Rows.Add(null, ex.Message, null);
-        tabBottom.SelectedTab = pageParserOutput;
-        throw;
-      } finally {
-        _parseTree = _parser.Context.CurrentParseTree;
-        ShowCompilerErrors();
-        if (chkParserTrace.Checked) {
-          ShowParseTrace();
-        }
-        ShowCompileStats();
-        ShowParseTree();
-        ShowAstTree();
-      }
+        private void ParseSample()
+        {
+            ClearParserOutput();
+            if (_parser == null || !_parser.Language.CanParse()) return;
+            _parseTree = null;
+            GC.Collect(); //to avoid disruption of perf times with occasional collections
+            _parser.Context.TracingEnabled = chkParserTrace.Checked;
+            try
+            {
+                _parser.Parse(txtSource.Text, "<source>");
+            }
+            catch (Exception ex)
+            {
+                gridCompileErrors.Rows.Add(null, ex.Message, null);
+                tabBottom.SelectedTab = pageParserOutput;
+                throw;
+            }
+            finally
+            {
+                _parseTree = _parser.Context.CurrentParseTree;
+                ShowCompilerErrors();
+                if (chkParserTrace.Checked)
+                {
+                    ShowParseTrace();
+                }
+                ShowCompileStats();
+                ShowParseTree();
+                ShowAstTree();
+            }
 
             //JOE
 
-            txtWast.Text = "";
-            txtWasm.Text ="";
-            var file = _parseTree.Root?.AstNode;
-            if (file!=null)
+            if (cboGrammars.SelectedItem == null)
             {
-                var wast = new CovfefeScript.Translation.Wasm.Assembler().Assemble((CovfefeScript.Translation.Ast.SourceFileAstNode)file);
-                txtWast.Text = wast;
-
-                File.WriteAllText("in.wat", wast);
-
-                var wat2wasm = new CovfefeScript.Compiler.Wat2Wasm();
-                if (wat2wasm.CompileFile("in.wat") == 0)
+                txtWast.Text = "";
+                txtWasm.Text = "";
+                var file = _parseTree.Root?.AstNode;
+                if (file != null)
                 {
-                    var dump = new CovfefeScript.Compiler.WasmObjDump();
+                    var wast = new CovfefeScript.Translation.Wasm.Assembler().Assemble((CovfefeScript.Translation.Ast.SourceFileAstNode)file);
+                    txtWast.Text = wast;
 
-                    dump.Disassemble("out.wasm");
-                    txtWasm.Text = dump.Output.Replace("\n","\r\n");
+                    File.WriteAllText("in.wat", wast);
 
-                    dump.Details("out.wasm");
-                    txtWasm.Text += dump.Output.Replace("\n", "\r\n");
+                    var wat2wasm = new CovfefeScript.Compiler.Wat2Wasm();
+                    if (wat2wasm.CompileFile("in.wat") == 0)
+                    {
+                        var dump = new CovfefeScript.Compiler.WasmObjDump();
+
+                        dump.Disassemble("out.wasm");
+                        txtWasm.Text = dump.Output.Replace("\n", "\r\n");
+
+                        dump.Details("out.wasm");
+                        txtWasm.Text += dump.Output.Replace("\n", "\r\n");
+
+                    }
+                    else
+                    {
+                        txtWasm.Text = wat2wasm.Output.Replace("\n", "\r\n");
+                    }
+
 
                 }
-                else
-                {
-                    txtWasm.Text = wat2wasm.Output.Replace("\n", "\r\n");
-                }
 
-
+                Wasm2Html.HtmlRunner.Generate("out.wasm", true);
             }
-
-            CovfefeScript.Compiler.HtmlRunner.Generate("out.wasm", true);
-
             txtSource.Focus();
 
-     }
+        }
 
       
 

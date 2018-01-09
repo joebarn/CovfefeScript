@@ -127,6 +127,10 @@
       <Project>{d545de4d-9dbb-4a3a-a6a2-d438028edada}</Project>
       <Name>covfefe-translation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\wasm2html\Wasm2Html.csproj">
+      <Project>{24b5a5b3-3d56-4f3b-b236-1d7ce53756a1}</Project>
+      <Name>Wasm2Html</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

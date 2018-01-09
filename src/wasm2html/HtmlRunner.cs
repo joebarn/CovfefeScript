@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CovfefeScript.Compiler
+namespace Wasm2Html
 {
     public class HtmlRunner
     {
@@ -32,23 +32,27 @@ namespace CovfefeScript.Compiler
             }
 
             string html = null;
-            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("CovfefeScript.Compiler.index.html"))
+            using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Wasm2Html.index.html"))
             using (StreamReader reader = new StreamReader(stream))
             {
                 html = reader.ReadToEnd();
             }
 
+            string title = "";
             string src = "";
             if (covfefeMode)
             {
+                title = "MAGA!!!";
                 src = "http://i0.kym-cdn.com/photos/images/facebook/000/862/065/0e9.jpg";
             }
             else
             {
+                title = "Wasm2Html Runner";
                 src = "http://webassembly.org/css/webassembly.svg";
             }
 
             html = html.Replace("{wasm}", wasmHex);
+            html = html.Replace("{title}", title);
             html = html.Replace("{src}", src);
 
             File.WriteAllText("index.html", html);
